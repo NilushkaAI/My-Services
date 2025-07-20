@@ -1,0 +1,319 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6; /* Light mode background */
+    color: #333; /* Light mode text color */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background-color: #282c36; /* Dark mode background */
+    color: #f4f7f6; /* Dark mode text color */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px; /* Reduced padding for smaller height */
+    background-color: #fff; /* Light mode header background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #eee;
+}
+
+body.dark-mode header {
+    background-color: #3b4252; /* Dark mode header background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid #4b546a;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    margin-right: 10px;
+    height: 40px; /* Adjust logo image height */
+    width: auto;
+}
+
+.logo h1 {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.search-and-category {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-bar input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 250px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+body.dark-mode .search-bar input {
+    border-color: #555;
+    background-color: #4b546a;
+    color: #f4f7f6;
+}
+
+.category-dropdown select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+body.dark-mode .category-dropdown select {
+    border-color: #555;
+    background-color: #4b546a;
+    color: #f4f7f6;
+}
+
+/* Styles for the mode toggle button with icons */
+#mode-toggle {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white; /* Icon color */
+    font-size: 1.2em; /* Adjust icon size */
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px; /* Make it a fixed size for better icon centering */
+    height: 45px;
+}
+
+#mode-toggle:hover {
+    background-color: #0056b3;
+}
+
+/* Hide sun icon in light mode, show moon */
+#mode-toggle .fa-sun {
+    display: none;
+}
+#mode-toggle .fa-moon {
+    display: block;
+}
+
+/* Hide moon icon in dark mode, show sun */
+body.dark-mode #mode-toggle .fa-sun {
+    display: block;
+}
+body.dark-mode #mode-toggle .fa-moon {
+    display: none;
+}
+
+.container {
+    display: grid;
+    /* Maintain fixed width columns to prevent stretching */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+    justify-content: center; /* Center cards when fewer are present */
+    gap: 30px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    /* Removed fixed height from .card. It will now adjust based on content. */
+    min-height: 420px; /* Set a minimum height to maintain initial appearance for short content */
+    box-sizing: border-box;
+    max-width: 350px; /* Keep max-width for consistent horizontal size */
+    width: 100%;
+}
+
+body.dark-mode .card {
+    background-color: #3b4252;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.category {
+    background-color: #e0e7ff;
+    color: #3f51b5;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+body.dark-mode .category {
+    background-color: #5c6bc0;
+    color: #e0e7ff;
+}
+
+.service-image {
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    object-fit: contain;
+    margin-bottom: 15px;
+    align-self: center; /* Center the image within the card */
+}
+
+.card h2 {
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+body.dark-mode .card h2 {
+    color: #f4f7f6;
+}
+
+.description {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 0; /* Ensures no extra space pushes the toggle button */
+    color: #555;
+    flex-grow: 1; /* Allows description to take up available space before buttons */
+    /* Controlled by .description.expanded, not here */
+    overflow: hidden; /* Default for short text */
+}
+
+body.dark-mode .description {
+    color: #ccc;
+}
+
+/* Show more/show less styles */
+.description .short-text {
+    display: block;
+    max-height: 4.8em; /* Limit to approx 3 lines (1.6em line-height * 3) */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.description .full-text {
+    display: none;
+    max-height: none; /* No height limit when showing full text */
+    overflow: visible; /* Ensure full text is seen */
+}
+
+/* When the 'expanded' class is present on the .description element */
+.description.expanded {
+    overflow: visible; /* Allow content to push the card height */
+    max-height: none; /* Ensure full height for content */
+}
+
+.description.expanded .short-text {
+    display: none;
+}
+
+.description.expanded .full-text {
+    display: block;
+}
+
+.toggle-description {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 5px; /* Provide space from the text above */
+    padding: 0;
+    text-decoration: underline;
+    display: block; /* Ensure it takes its own line */
+    /* Removed absolute positioning - it should flow with the content */
+}
+
+.toggle-description:hover {
+    color: #0056b3;
+}
+
+body.dark-mode .toggle-description {
+    color: #8ab4f8;
+}
+
+body.dark-mode .toggle-description:hover {
+    color: #a7c5fb;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: auto; /* Push buttons to the bottom of the card */
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6a0dad; /* Purple color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #4b0a88; /* Darker purple */
+}
+
+.demo-btn {
+    background-color: #007bff; /* Blue for Demo button */
+}
+
+.demo-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+
+    .search-and-category {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .search-bar input,
+    .category-dropdown select {
+        width: 100%;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .card {
+        padding: 20px;
+        height: auto; /* Allow height to adjust on smaller screens */
+        max-width: 100%;
+        min-height: auto; /* Remove min-height on small screens */
+    }
+
+    .card .buttons {
+        justify-content: center; /* Center buttons on small screens for better touch targets */
+    }
+}
